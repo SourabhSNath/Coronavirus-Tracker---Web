@@ -31,17 +31,20 @@
     </div>
     <div class="table-outer-container">
         <div id="search-div">
+            <!--suppress HtmlFormInputWithoutLabel -->
             <input type="search" id="search" placeholder="Type here to search"/>
         </div>
         <div class="table-container">
             <table class="table">
                 <tr>
+                    <th> </th> <!-- Empty for id -->
                     <th>Country</th>
                     <th>State</th>
                     <th>Total cases reported</th>
                     <th>New cases since previous day</th>
                 </tr>
                 <tr th:each="data : ${locationStats}">
+                    <td th:text="${data.id}">1</td>
                     <td th:text="${data.country}">India</td>
                     <td th:text="${data.state}">Karnataka</td>
                     <td th:text="${data.latestCaseData}">0</td>

@@ -26,7 +26,7 @@ import java.util.stream.Collectors;
 @Service
 public class CoronaVirusDataService {
 
-    private static final String VIRUS_DATA_UTL = "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_19-covid-Confirmed.csv";
+    private static final String VIRUS_CONFIRMED_DATA_URL = "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_19-covid-Confirmed.csv";
 
     private List<LocationDataModel> allDataList = new ArrayList<>();
 
@@ -50,7 +50,7 @@ public class CoronaVirusDataService {
         // HttpClient is used to make Http Call to the url
         HttpClient client = HttpClient.newHttpClient();
         var request = HttpRequest.newBuilder()
-                .uri(URI.create(VIRUS_DATA_UTL))
+                .uri(URI.create(VIRUS_CONFIRMED_DATA_URL))
                 .build();
 
         // HttpResponse.BodyHandlers.ofString() takes the response body and returns it as a String
@@ -95,6 +95,10 @@ public class CoronaVirusDataService {
 
     public List<LocationDataModel> getAllDataList() {
         allDataList.sort(Comparator.comparing(LocationDataModel::getLatestCaseData).reversed());
+        var i = 1;
+        for (var l : allDataList) {
+            l.setId(i++);
+        }
         return allDataList;
     }
 

@@ -2,12 +2,21 @@ package com.sourabh.coronavirustracker.models;
 
 public class LocationDataModel {
 
+    private int id;
     private String state;
     private String country;
     private int latestCaseData;
     private int previousDayDifference;
 
     public LocationDataModel() {
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getState() {

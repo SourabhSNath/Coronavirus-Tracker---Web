@@ -118,6 +118,10 @@ html, body {
     width: 100%;
 }
 
+.table-outer-container {
+    width: 100%;
+}
+
 .table-container .table{
     border-collapse: collapse;
     text-align: left;
