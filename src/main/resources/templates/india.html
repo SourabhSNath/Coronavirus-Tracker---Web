@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <script type="text/javascript" th:src="@{webjars/jquery/3.4.1/jquery.min.js}"></script>
     <link
             rel="stylesheet"
             type="text/css"
@@ -15,7 +16,7 @@
 <header class="title">
     <h1>Coronavirus Tracker <span>|</span> <span> India</span></h1>
     <div class="menu">
-        <h3><a href="#">Global</a></h3>
+        <h3><a href="/">Global</a></h3>
         <h3><a href="#">All </a></h3>
     </div>
 </header>
@@ -116,5 +117,20 @@
     </div>
 </div>
 <!-- Flex container end -->
+
+<!--Jquery to filter countries-->
+<script th:inline="javascript">
+
+    $("#search").keyup(function () {
+        let value = this.value.toLowerCase().trim();
+
+        $(".table").find("tr").each(function (index) {
+            if (index === 0) return;
+            let id = $(this).find("td").text().toLowerCase().trim();
+            $(this).toggle(id.indexOf(value) !== -1);
+        });
+
+    });
+</script>
 </body>
 </html>

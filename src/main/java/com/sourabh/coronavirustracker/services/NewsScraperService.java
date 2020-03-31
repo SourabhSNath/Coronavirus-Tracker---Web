@@ -12,7 +12,7 @@ import java.util.List;
 
 @Service
 public class NewsScraperService {
-    private static final String NEWS_URL = "https://www.indiatvnews.com/topic/coronavirus/news";
+    private static final String NEWS_URL = "https://www.indiatvnews.com/topic/coronavirus";
 
     public List<NewsModel> getScrapedNews() throws IOException {
 

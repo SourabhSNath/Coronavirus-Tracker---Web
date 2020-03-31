@@ -38,8 +38,12 @@ public class DataController {
 
     @GetMapping("india")
     public String india(Model model) throws IOException {
-        model.addAttribute("indianData", indianDataService.getIndianData()
-                .subList(1, indianDataService.getIndianData().size()));
+        var ids = indianDataService.getIndianData();
+        model.addAttribute("indianData", ids.subList(1, indianDataService.getIndianData().size()));
+        model.addAttribute("totalReported", ids.get(0).getTotalConfirmed());
+        model.addAttribute("activeCases", ids.get(0).getCurrentlyActive());
+        model.addAttribute("recovered", ids.get(0).getCuredOrMigrated());
+        model.addAttribute("deaths", ids.get(0).getDeaths());
         model.addAttribute("coronaNews", newsScraperService.getScrapedNews());
         return "india";
     }
