@@ -1,6 +1,6 @@
 package com.sourabh.coronavirustracker.services;
 
-import com.sourabh.coronavirustracker.models.LocationDataModel;
+import com.sourabh.coronavirustracker.models.WorldDataModel;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -26,9 +26,9 @@ import java.util.stream.Collectors;
 @Service
 public class CoronaVirusDataService {
 
-    private static final String VIRUS_CONFIRMED_DATA_URL = "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_19-covid-Confirmed.csv";
+    private static final String VIRUS_CONFIRMED_DATA_URL = "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv";
 
-    private List<LocationDataModel> allDataList = new ArrayList<>();
+    private List<WorldDataModel> allDataList = new ArrayList<>();
 
     /**
      * @ PostConstruct Tells Spring to execute this method every time when the Class is constructed
@@ -70,31 +70,31 @@ public class CoronaVirusDataService {
      * @return a list containing LocationDataModel
      * @throws IOException from CSVFormat.DEFAULT.withFirstRecordAsHeader().parse(csvBodyReader);
      */
-    private List<LocationDataModel> getData(HttpResponse<String> response) throws IOException {
-        var newList = new ArrayList<LocationDataModel>();
+    private List<WorldDataModel> getData(HttpResponse<String> response) throws IOException {
+        var newList = new ArrayList<WorldDataModel>();
 
         StringReader csvBodyReader = new StringReader(response.body());
 
         Iterable<CSVRecord> records = CSVFormat.DEFAULT.withFirstRecordAsHeader().parse(csvBodyReader);
         for (CSVRecord record : records) {
-            LocationDataModel locationDataModel = new LocationDataModel();
-            locationDataModel.setState(record.get("Province/State"));
-            locationDataModel.setCountry(record.get("Country/Region"));
+            WorldDataModel worldDataModel = new WorldDataModel();
+            worldDataModel.setState(record.get("Province/State"));
+            worldDataModel.setCountry(record.get("Country/Region"));
 
             var todayCount = Integer.parseInt(record.get(record.size() - 1));
-            locationDataModel.setLatestCaseData(todayCount);
+            worldDataModel.setLatestCaseData(todayCount);
             var previousCount = Integer.parseInt(record.get(record.size() - 2));
 
-            locationDataModel.setPreviousDayDifference(todayCount - previousCount);
+            worldDataModel.setPreviousDayDifference(todayCount - previousCount);
 
-            newList.add(locationDataModel);
+            newList.add(worldDataModel);
         }
         csvBodyReader.close();
         return newList;
     }
 
-    public List<LocationDataModel> getAllDataList() {
-        allDataList.sort(Comparator.comparing(LocationDataModel::getLatestCaseData).reversed());
+    public List<WorldDataModel> getAllDataList() {
+        allDataList.sort(Comparator.comparing(WorldDataModel::getLatestCaseData).reversed());
         var i = 1;
         for (var l : allDataList) {
             l.setId(i++);
@@ -103,11 +103,11 @@ public class CoronaVirusDataService {
     }
 
     public long getTotalCases() {
-        return allDataList.stream().mapToLong(LocationDataModel::getLatestCaseData).sum();
+        return allDataList.stream().mapToLong(WorldDataModel::getLatestCaseData).sum();
     }
 
     public long getTotalNewCases() {
-        return allDataList.stream().mapToLong(LocationDataModel::getPreviousDayDifference).sum();
+        return allDataList.stream().mapToLong(WorldDataModel::getPreviousDayDifference).sum();
     }
 
     /**
@@ -120,8 +120,8 @@ public class CoronaVirusDataService {
      */
     public Map<String, Integer> getTopCountries() {
         var map = allDataList.stream()
-                .collect(Collectors.groupingBy(LocationDataModel::getCountry, LinkedHashMap::new,
-                        Collectors.summingInt(LocationDataModel::getLatestCaseData)))
+                .collect(Collectors.groupingBy(WorldDataModel::getCountry, LinkedHashMap::new,
+                        Collectors.summingInt(WorldDataModel::getLatestCaseData)))
                 .entrySet().stream()
                 .limit(5)
                 .sorted(Map.Entry.<String, Integer>comparingByValue().reversed())

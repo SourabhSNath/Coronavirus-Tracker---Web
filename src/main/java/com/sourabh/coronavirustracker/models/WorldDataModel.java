@@ -1,6 +1,6 @@
 package com.sourabh.coronavirustracker.models;
 
-public class LocationDataModel {
+public class WorldDataModel {
 
     private int id;
     private String state;
@@ -8,7 +8,7 @@ public class LocationDataModel {
     private int latestCaseData;
     private int previousDayDifference;
 
-    public LocationDataModel() {
+    public WorldDataModel() {
     }
 
     public int getId() {

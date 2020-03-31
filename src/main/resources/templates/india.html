@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link
             rel="stylesheet"
             type="text/css"
-            th:href="@{/home.css}"
+            th:href="@{/india.css}"
     />
-    <title>Coronavirus Tracker - India</title>
+    <title>Coronavirus Tracker</title>
 </head>
 
 <body>
@@ -109,7 +109,7 @@
                     ipsa, voluptate non modi deleniti. Nesciunt harum minus, provident
                     maiores deserunt iste.
                 </p>
-                <h5 th:text="${news.time}">4:20 PM</h5>
+                <h5 th:text="${news.newsMetaData}">4:20 PM</h5>
             </div>
         </div>
         <!-- News container end -->
