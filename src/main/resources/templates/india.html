@@ -94,7 +94,8 @@
     <!-- Table and cards container end -->
 
     <div class="news-container">
-        <h1 class="news">News</h1>
+        <h1 class="news"><a style="text-decoration: none; color: white;"
+                th:href="@{https://www.indiatvnews.com/topic/coronavirus}" target="_blank"> News </a></h1>
 
         <div th:each="news : ${coronaNews}">
             <div class="news-card">

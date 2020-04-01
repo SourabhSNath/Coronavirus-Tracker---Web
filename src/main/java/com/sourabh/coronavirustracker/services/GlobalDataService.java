@@ -1,16 +1,18 @@
 package com.sourabh.coronavirustracker.services;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.sourabh.coronavirustracker.models.GlobalDataModel;
 import com.sourabh.coronavirustracker.models.LatestGlobalTotalModel;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class GlobalDataService {
@@ -35,15 +37,29 @@ public class GlobalDataService {
             globalDataModel.setLatestGlobalTotalModel(globalTotalModel);
 
             globalDataModelList.add(globalDataModel);
+
+            JsonNode confirmedTimeline = element.findValue("timelines");
+            var node = confirmedTimeline.path("confirmed").get("timeline");
+//            System.out.println(node);
+
+            LinkedHashMap<String, Integer> map = objectMapper.readValue(node.toString(), new TypeReference<>() {
+                @Override
+                public Type getType() {
+                    return super.getType();
+                }
+            });
+
+            Integer[] newCases = map.values().toArray(Integer[]::new);
+            var newCasesLength = newCases.length;
+            globalTotalModel.setPreviousConfirmed(newCases[newCasesLength - 1]);
+//            System.out.println(newCases[newCasesLength - 1] + ". Older: " + newCases[newCasesLength - 2] + " Country: " + globalDataModel.getCountry());
+
         }
 
-        globalDataModelList.forEach(System.out::println);
 
 //        var something = globalDataModelList.stream().mapToLong(a -> a.getLatestGlobalTotalModel().getConfirmed()).sum();
 //        System.out.println(something);
 
-        JsonNode confirmedTimeline = locationsNode.path("timelines");
-        confirmedTimeline.forEach(e -> System.out.println("Mooooooooooooo"));
 
         return globalDataModelList;
     }

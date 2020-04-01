@@ -9,7 +9,9 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class IndianDataService {
@@ -24,15 +26,19 @@ public class IndianDataService {
 
         JsonNode rootNode = objectMapper.readTree(new URL(COVID_DATA_URL));
         JsonNode statesNode = rootNode.path("statewise");
-        int i = 0;
         for (JsonNode element : statesNode) {
 
             var indianData = objectMapper.readValue(element.toString(), IndianDataModel.class);
             var stateDeltaObject = objectMapper.readValue(element.path("delta").toString(), StateDeltaModel.class);
-            indianData.setSlNo(i++);
             indianData.setStateDeltaModels(stateDeltaObject);
 
             indianDataList.add(indianData);
+        }
+
+        indianDataList.sort(Comparator.comparing(IndianDataModel::getTotalConfirmed).reversed());
+        int i = 0;
+        for (var e : indianDataList) {
+            e.setSlNo(i++);
         }
 
         return indianDataList;
