@@ -12,7 +12,8 @@ import java.util.List;
 
 @Service
 public class NewsScraperService {
-    private static final String NEWS_URL = "https://www.indiatvnews.com/topic/coronavirus";
+    //    private static final String NEWS_URL = "https://www.indiatvnews.com/topic/coronavirus";
+    private static final String NEWS_URL = "https://www.indiatvnews.com/coronavirus";
 
     public List<NewsModel> getScrapedNews() throws IOException {
 
@@ -20,12 +21,15 @@ public class NewsScraperService {
         Document document = Jsoup.connect(NEWS_URL).get();
         var newsList = new ArrayList<NewsModel>();
 
-        for (Element element : document.select("#newsListfull > li ")) {
+        for (Element element : document.select("div.topNews.news-cov-body > ul > li > div ")) {
             var newsModel = new NewsModel();
 
-            newsModel.setNewsHeadline(element.select("> div h3").text());
-            newsModel.setNewsBody(element.select("> div p").text());
-            newsModel.setNewsMetaData(element.select("> div span").text());
+            newsModel.setNewsHeadline(element.select("h3").text());
+            newsModel.setNewsBody(element.select("p").text());
+            var meta = element.select("span").text();
+            var dividerPos = meta.indexOf("|");
+            meta = meta.substring(dividerPos + 2);
+            newsModel.setNewsMetaData(meta);
 
             newsList.add(newsModel);
         }
