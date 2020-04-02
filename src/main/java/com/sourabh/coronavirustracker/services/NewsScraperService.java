@@ -4,6 +4,7 @@ import com.sourabh.coronavirustracker.models.NewsModel;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -33,6 +34,7 @@ public class NewsScraperService {
             newsList.add(newsModel);
         }
 
+        System.out.println("NEWS UPDATE");
         return newsList;
     }
 

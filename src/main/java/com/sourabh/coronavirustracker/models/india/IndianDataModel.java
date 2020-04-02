@@ -1,11 +1,10 @@
-package com.sourabh.coronavirustracker.models;
+package com.sourabh.coronavirustracker.models.india;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.io.Serializable;
-import java.util.List;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class IndianDataModel implements Serializable {

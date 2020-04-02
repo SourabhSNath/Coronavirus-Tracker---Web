@@ -1,42 +1,27 @@
-package com.sourabh.coronavirustracker.models;
+package com.sourabh.coronavirustracker.models.global;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class StateDeltaModel {
-    @JsonProperty("active")
-    private int active;
+public class GlobalTotalDataModel {
     @JsonProperty("confirmed")
     private int confirmed;
+    @JsonIgnore
+    private int newConfirmed;
     @JsonProperty("deaths")
     private int deaths;
     @JsonProperty("recovered")
     private int recovered;
 
-    public StateDeltaModel() {
+    public GlobalTotalDataModel() {
 
     }
 
-    /**
-     * Required to convert number value to int
-     * [It was "active" : 59 instead of "active" : "59"]
-     */
-    public StateDeltaModel(int active) {
-        this.active = active;
-    }
-
-    public StateDeltaModel(int active, int confirmed, int deaths, int recovered) {
-        this.active = active;
+    public GlobalTotalDataModel(int confirmed, int newConfirmed, int deaths, int recovered) {
         this.confirmed = confirmed;
+        this.newConfirmed = newConfirmed;
         this.deaths = deaths;
         this.recovered = recovered;
-    }
-
-    public int getActive() {
-        return active;
-    }
-
-    public void setActive(int active) {
-        this.active = active;
     }
 
     public int getConfirmed() {
@@ -45,6 +30,14 @@ public class StateDeltaModel {
 
     public void setConfirmed(int confirmed) {
         this.confirmed = confirmed;
+    }
+
+    public int getNewConfirmed() {
+        return newConfirmed;
+    }
+
+    public void setNewConfirmed(int newConfirmed) {
+        this.newConfirmed = newConfirmed;
     }
 
     public int getDeaths() {
@@ -65,9 +58,9 @@ public class StateDeltaModel {
 
     @Override
     public String toString() {
-        return "StateDeltaModel{" +
-                "active=" + active +
-                ", confirmed=" + confirmed +
+        return "LatestGlobalTotalModel{" +
+                "confirmed=" + confirmed +
+                ", newConfirmed=" + newConfirmed +
                 ", deaths=" + deaths +
                 ", recovered=" + recovered +
                 '}';

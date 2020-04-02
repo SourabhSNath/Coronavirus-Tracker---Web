@@ -1,4 +1,4 @@
-package com.sourabh.coronavirustracker.models;
+package com.sourabh.coronavirustracker.models.global;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -9,25 +9,23 @@ public class GlobalDataModel {
 
     private int id;
     private String country;
-
-    private int population;
     private String province;
-    private LatestGlobalTotalModel latestGlobalTotalModel;
+    private GlobalTotalDataModel globalTotalDataModel;
 
     public GlobalDataModel() {
 
     }
 
-    public GlobalDataModel(int id, String country, int population, String province,
-                           LatestGlobalTotalModel latestGlobalTotalModel) {
+    public GlobalDataModel(int id, String country, String province,
+                           GlobalTotalDataModel globalTotalDataModel) {
         this.id = id;
         this.country = country;
-        this.population = population;
         this.province = province;
-        this.latestGlobalTotalModel = latestGlobalTotalModel;
+        this.globalTotalDataModel = globalTotalDataModel;
+
     }
 
-    @JsonProperty("id")
+    @JsonIgnore
     public void setId(int id) {
         this.id = id + 1;
     }
@@ -37,19 +35,14 @@ public class GlobalDataModel {
         this.country = country;
     }
 
-    @JsonProperty("country_population")
-    public void setPopulation(int population) {
-        this.population = population;
-    }
-
     @JsonProperty("province")
     public void setProvince(String province) {
-        this.province = province;
+        this.province = province.equals("") ? "-" : province;
     }
 
     @JsonIgnore
-    public void setLatestGlobalTotalModel(LatestGlobalTotalModel latestGlobalTotalModel) {
-        this.latestGlobalTotalModel = latestGlobalTotalModel;
+    public void setGlobalTotalDataModel(GlobalTotalDataModel globalTotalDataModel) {
+        this.globalTotalDataModel = globalTotalDataModel;
     }
 
     public int getId() {
@@ -60,16 +53,13 @@ public class GlobalDataModel {
         return country;
     }
 
-    public int getPopulation() {
-        return population;
-    }
 
     public String getProvince() {
         return province;
     }
 
-    public LatestGlobalTotalModel getLatestGlobalTotalModel() {
-        return latestGlobalTotalModel;
+    public GlobalTotalDataModel getGlobalTotalDataModel() {
+        return globalTotalDataModel;
     }
 
     @Override
@@ -77,9 +67,8 @@ public class GlobalDataModel {
         return "GlobalDataModel{" +
                 "id=" + id +
                 ", country='" + country + '\'' +
-                ", population=" + population +
                 ", province='" + province + '\'' +
-                ", latestGlobalTotalModel=" + latestGlobalTotalModel +
+                ", globalTotalDataModel=" + globalTotalDataModel +
                 '}';
     }
 }

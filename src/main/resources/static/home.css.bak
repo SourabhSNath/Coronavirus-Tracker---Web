@@ -1,0 +1,192 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    background-color: #EDEFF1;
+}
+
+.title {
+    padding: 2em 5em 1em 7.5em;
+    font-family: Cabin, sans-serif;
+}
+
+.data-container {
+    display: flex;
+    flex-direction: row-reverse;
+    padding: 1em 5em;
+    justify-content: center;
+}
+
+#search-div{
+    padding: 0 0 1em 0;
+    font-family: Lato, sans-serif;
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+#search-div input{
+    border: 2px solid #051937;
+    border-radius: 15px;
+    padding: 0.5em;
+    outline: none;
+}
+
+/* Right boxes */
+.data-container .box-data {
+    padding: 0 1em;
+    margin-left: 1em;
+}
+
+/****************************************
+        Total data box styling
+*****************************************/
+.data-container .box-data .data-total {
+    background-image: linear-gradient(to right top, #051937, #001b43, #001c4f, #001d5a, #071d65);
+    padding: 1.5em;
+    color: white;
+    min-width: fit-content;
+    border-radius: 15px;
+    box-shadow: 6px 6px 20px rgba(0,0,0,0.3), -6px -6px 20px rgba(255, 255, 255, 1);
+}
+
+.data-container .box-data .data-total h3 {
+    margin-top: 0.5em;
+    font-family: Cabin, sans-serif;
+}
+
+.data-container .box-data .data-total h2 {
+    font-family: Lato, sans-serif;
+}
+
+.data-container .box-data .data-total #total-cases {
+    font-size: 2.5rem;
+}
+
+.data-container .box-data .data-total #case-title::after {
+    content: "";
+    border-bottom: 1px solid white;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    display: flex;
+}
+
+.data-container .box-data .data-total #total-new-cases {
+    font-size: 2.2rem;
+}
+
+/****************************************
+        Top 5 countries box styling
+*****************************************/
+
+.data-container .box-data .top-countries {
+    margin-top: 2em;
+    padding: 1.5em;
+    min-width: fit-content;
+    border-radius: 15px;
+    background-color: white;
+
+    box-shadow: 6px 6px 20px rgba(0,0,0,0.3), -6px -6px 20px rgba(255, 255, 255, 1);
+}
+
+.data-container .box-data .top-countries h2 {
+    padding: 0 0.3em 0.5em 0.3em;
+    font-family: Cabin, sans-serif;
+}
+
+.data-container .box-data .top-countries table {
+    border-collapse: collapse;
+    font-family: Lato, sans-serif;
+    width: 100%;
+}
+
+.data-container .box-data .top-countries table tr td {
+    padding: 0.5em 0.5em;
+}
+
+/***********************************
+        Main table styling
+ ************************************/
+
+.table-container {
+    background-color: white;
+    border-radius: 15px;
+    padding: 1em;
+    width: 100%;
+}
+
+.table-outer-container {
+    width: 100%;
+}
+
+.table-container .table{
+    border-collapse: collapse;
+    text-align: left;
+    position: relative;
+    width: 100%;
+}
+
+.table-container .table tr{
+    border-bottom: 1px solid rgba(5, 25, 55, 0.06);
+}
+
+.table-container .table tr th{
+    padding: 1em;
+    font-family: Cabin, sans-serif;
+    border-bottom: 1px solid #001c4f;
+    font-size: 1.1rem;
+    position: sticky;
+}
+
+.table-container .table tr td{
+    padding: 1em;
+    font-family: Lato, sans-serif;
+}
+
+@media screen and (max-width: 780px){
+
+    .title {
+        padding: 5%;
+        width: 100%;
+    }
+
+    .title h1{
+        text-align: center;
+    }
+
+    .data-container {
+        display: flex;
+        flex-direction: column;
+        padding: 0 5%;
+    }
+
+    .data-container .box-data {
+        padding: 0;
+        margin-left: 0;
+        margin-bottom: 2em;
+    }
+
+    .table-container {
+        overflow: auto;
+        max-height: 500px;
+        margin-bottom: 2em;
+    }
+
+    .table-container::-webkit-scrollbar{
+        background-color: transparent;
+        width: 5px;
+        height: 5px;
+    }
+
+    .table-container::-webkit-scrollbar-thumb{
+        background-color: #071d65;
+        border-radius: 15px;
+    }
+
+    .table-container .table{
+        text-align: center;
+    }
+}

@@ -1,10 +1,147 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <script
+            type="text/javascript"
+            th:src="@{webjars/jquery/3.4.1/jquery.min.js}"
+    ></script>
+    <link rel="stylesheet" type="text/css" th:href="@{/home.css}"/>
+    <title>Coronavirus Tracker</title>
 </head>
-<body>
 
+<body>
+<header class="title">
+    <h1>Coronavirus Tracker <span>|</span> <span> Global</span></h1>
+    <div class="menu">
+        <h3><a href="/india">India</a></h3>
+        <h3><a href="#">All </a></h3>
+    </div>
+</header>
+<!-- Title End -->
+
+<div class="flex-container">
+    <!-- Tabel and cards -->
+    <div class="table-cards-container">
+        <div class="data-cards">
+            <div class="card total-cases-card">
+                <p>Total Reported Cases</p>
+                <h1 th:text="${totalReported}">335955</h1>
+            </div>
+
+            <div class="card total-new-confirmed-cases-card">
+                <p>Total New Cases</p>
+                <h1 th:text="${newCases}">31431</h1>
+            </div>
+
+            <div class="card total-recovered-card">
+                <p>Recovered</p>
+                <h1 th:text="${recovered}">31431</h1>
+            </div>
+
+            <div class="card total-deaths-card">
+                <p>Deaths</p>
+                <h1 th:text="${deaths}">31431</h1>
+            </div>
+            <!-- Data Card End -->
+        </div>
+
+        <!--  Table  -->
+        <div class="table-cover">
+            <div id="tools-div">
+                <!--suppress HtmlFormInputWithoutLabel -->
+                <input
+                        type="search"
+                        name="search"
+                        id="search"
+                        placeholder="Type here to search"
+                />
+            </div>
+            <!-- Tools-div end -->
+
+            <div class="table-container">
+                <div class="table-inner-container">
+                    <!-- For padding in smaller screens -->
+                    <table class="table">
+                        <tr>
+                            <!-- Empty for id -->
+                            <th></th>
+                            <th>Country</th>
+                            <th>State</th>
+                            <th>Total Confirmed Cases</th>
+                            <th>New Cases</th>
+                            <th>Deaths</th>
+                        </tr>
+                        <tr th:each="data : ${globalData}">
+                            <td th:text="${data.id}">1</td>
+                            <td th:text="${data.country}">India</td>
+                            <td th:text="${data.province}" style="width: 100px">Karnataka</td>
+                            <td th:text="${data.globalTotalDataModel.confirmed}">100</td>
+                            <td th:text="${data.globalTotalDataModel.newConfirmed}">
+                                100
+                            </td>
+                            <td th:text="${data.globalTotalDataModel.deaths}">5</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <!-- Table container end -->
+        </div>
+        <!-- Table-cover end -->
+    </div>
+    <!-- Table and cards container end -->
+
+    <div class="news-container">
+        <h1 class="news">
+            <a
+                    style="text-decoration: none; color: white;"
+                    th:href="@{https://www.indiatvnews.com/topic/coronavirus}"
+                    target="_blank"
+            >
+                News
+            </a>
+        </h1>
+
+        <div th:each="news : ${coronaNews}">
+            <div class="news-card">
+                <h4 class="news-title" th:text="${news.newsHeadline}">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim a
+                    rerum, saepe totam porro voluptate numquam dolorem blanditiis
+                    harum iste ipsa soluta voluptates architecto eligendi suscipit
+                    odit quia quasi temporibus.
+                </h4>
+                <p class="news-body" th:text="${news.newsBody}">
+                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Aperiam
+                    optio facilis natus maiores, saepe ipsam autem, adipisci delectus
+                    ipsa, voluptate non modi deleniti. Nesciunt harum minus, provident
+                    maiores deserunt iste.
+                </p>
+                <h5 th:text="${news.newsMetaData}">4:20 PM</h5>
+            </div>
+        </div>
+        <!-- News container end -->
+    </div>
+</div>
+<!-- Flex container end -->
+
+<!--Jquery to filter countries-->
+<script th:inline="javascript">
+    $("#search").keyup(function () {
+        let value = this.value.toLowerCase().trim();
+
+        $(".table")
+            .find("tr")
+            .each(function (index) {
+                if (index === 0) return;
+                let id = $(this)
+                    .find("td")
+                    .text()
+                    .toLowerCase()
+                    .trim();
+                $(this).toggle(id.indexOf(value) !== -1);
+            });
+    });
+</script>
 </body>
 </html>

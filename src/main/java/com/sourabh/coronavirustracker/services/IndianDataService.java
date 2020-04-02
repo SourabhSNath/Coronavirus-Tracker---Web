@@ -2,8 +2,8 @@ package com.sourabh.coronavirustracker.services;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sourabh.coronavirustracker.models.IndianDataModel;
-import com.sourabh.coronavirustracker.models.StateDeltaModel;
+import com.sourabh.coronavirustracker.models.india.IndianDataModel;
+import com.sourabh.coronavirustracker.models.india.StateDeltaModel;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -11,7 +11,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class IndianDataService {
