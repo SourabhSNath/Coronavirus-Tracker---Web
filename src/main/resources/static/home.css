@@ -5,19 +5,17 @@
 }
 
 :root {
-    --background-color: #fbfcfc;
+    --background-color: white;
     --text-red: #f9345e;
-    --text-green: #73cd25;
+    --text-blue: #304FFE;
     --text-orange: #fa6400;
-    --text-blue: #843ffc;
-    --bg-green: #00d2ad;
+    --text-purple: #6A1B9A;
     --container-black: #252a41;
 }
 
 html,
 body {
-    /* background-image: linear-gradient(to top, #fbfcfc 0%, white 100%); */
-    /* background-color: var(--background-color); */
+    background-color: var(--background-color);
 }
 
 /*******************************
@@ -127,11 +125,11 @@ body {
 }
 
 .total-recovered-card h1 {
-    color: var(--text-green);
+    color: var(--text-blue);
 }
 
 .total-deaths-card h1 {
-    color: var(--text-blue);
+    color: var(--text-purple);
 }
 
 /**************************

@@ -52,18 +52,21 @@ public class DataController {
     public String home(Model model) throws IOException {
         model.addAttribute("globalData", globalDataService.getGlobalData());
         model.addAttribute("coronaNews", getNewsService());
-        model.addAttribute("totalReported", globalDataService.getTotalData().getConfirmed());
-        model.addAttribute("newCases", globalDataService.getTotalData().getNewConfirmed());
-        model.addAttribute("deaths", globalDataService.getTotalData().getDeaths());
-        var recovered = globalDataService.getTotalData().getRecovered();
+
+        var totalData = globalDataService.getTotalData();
+        var recovered = totalData.getRecovered();
+        model.addAttribute("totalReported", totalData.getConfirmed());
+        model.addAttribute("newCases", totalData.getNewConfirmed());
+        model.addAttribute("deaths", totalData.getDeaths());
         model.addAttribute("recovered", (recovered == 0) ? "Unavailable" : recovered);
+
         return "global";
     }
 
     @GetMapping("india")
     public String india(Model model) throws IOException {
         var ids = indianDataService.getIndianData();
-        model.addAttribute("indianData", ids.subList(1, indianDataService.getIndianData().size()));
+        model.addAttribute("indianData", ids.subList(1, ids.size()));
         model.addAttribute("totalReported", ids.get(0).getTotalConfirmed());
         model.addAttribute("activeCases", ids.get(0).getCurrentlyActive());
         model.addAttribute("recovered", ids.get(0).getCuredOrMigrated());
