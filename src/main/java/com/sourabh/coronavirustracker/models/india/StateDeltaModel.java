@@ -17,7 +17,7 @@ public class StateDeltaModel {
     }
 
     /**
-     * Required to convert number value to int
+     * Required to convert 'number' value to int
      * [It was "active" : 59 instead of "active" : "59"]
      */
     public StateDeltaModel(int active) {

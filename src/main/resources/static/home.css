@@ -38,7 +38,7 @@ body {
 
 .title span:nth-child(1) {
     color: black;
-    font-family: Roboto;
+    font-family: Roboto, sans-serif;
     font-weight: 200;
 }
 
@@ -198,7 +198,6 @@ body {
     padding: 1em;
     height: 630px;
     overflow-y: auto;
-     /*background-color: var(--bg-green);*/
     background: linear-gradient(
             to right,
             #ff416c,
@@ -209,8 +208,17 @@ body {
     margin-right: 3.5em;
 }
 
+.news-container:hover::-webkit-scrollbar{
+    display: unset;
+}
+
 .news-container::-webkit-scrollbar {
-    width: 0;
+    display: none;
+}
+
+.news-container::-webkit-scrollbar-thumb{
+    border-radius: 10px;
+    background-color: lavenderblush;
 }
 
 .news {

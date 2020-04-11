@@ -8,6 +8,7 @@ import com.sourabh.coronavirustracker.models.global.GlobalTotalDataModel;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -22,6 +23,9 @@ import java.util.List;
 public class GlobalDataService {
 
     private static final String GLOBAL_URL = "https://coronavirus-tracker-api.herokuapp.com/v2/locations?timelines=1";
+
+    // In case GLOBAL_URL is dead
+    // private static final String ALTERNATE_GLOBAL_URL = "https://covid-tracker-us.herokuapp.com/v2/locations?source=jhu&timelines=true";
 
     private static final ObjectMapper objectMapper = new ObjectMapper();
     private List<GlobalDataModel> globalDataModelList;
@@ -38,10 +42,6 @@ public class GlobalDataService {
             var globalDataModel = objectMapper.readValue(element.toString(), GlobalDataModel.class);
             var globalTotalModel = objectMapper.readValue(element.path("latest").toString(), GlobalTotalDataModel.class);
 
-            // Get the timeline object and pass it to the GlobalTimelineTrackerModel class,
-            // this was faster than the other methods I tried i.e using objectMapper and TypeReference to directly
-            // convert the json object to a java map
-            // The timeline is required to find the new cases since last update
             JsonNode confirmedTimeline = element.path("timelines");
             var node = confirmedTimeline.path("confirmed").get("timeline");
             var globalTimelineDataTracker = objectMapper.readValue(node.toString(), GlobalTimelineDataTrackerModel.class);
@@ -71,7 +71,8 @@ public class GlobalDataService {
 
         JsonNode node = getNodeFromURL();
         var globalTotalDataModel = objectMapper.readValue(node.path("latest").toString(), GlobalTotalDataModel.class);
-        var newCases = globalDataModelList.stream().mapToInt(e -> e.getGlobalTotalDataModel().getNewConfirmed()).sum();
+        var newCases = globalDataModelList.stream()
+                .mapToInt(e -> e.getGlobalTotalDataModel().getNewConfirmed()).sum();
 
         globalTotalDataModel.setNewConfirmed(newCases);
 

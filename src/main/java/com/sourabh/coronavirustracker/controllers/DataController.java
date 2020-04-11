@@ -19,7 +19,7 @@ public class DataController {
     //    private final CoronaVirusDataService coronaVirusDataService;
     private final GlobalDataService globalDataService;
     private final IndianDataService indianDataService;
-    private NewsScraperService newsScraperService;
+    private final NewsScraperService newsScraperService;
 
     @Autowired
     public DataController(GlobalDataService globalDataService,
@@ -29,24 +29,6 @@ public class DataController {
         this.indianDataService = indianDataService;
         this.newsScraperService = newsScraperService;
     }
-
-//    @Autowired
-//    public DataController(CoronaVirusDataService coronaVirusDataService,
-//                          IndianDataService indianDataService,
-//                          NewsScraperService newsScraperService) {
-//        this.coronaVirusDataService = coronaVirusDataService;
-//        this.indianDataService = indianDataService;
-//        this.newsScraperService = newsScraperService;
-//    }
-
-//    @GetMapping("/")
-//    public String home(Model model) {
-//        model.addAttribute("locationStats", coronaVirusDataService.getAllDataList());
-//        model.addAttribute("totalReportedCases", coronaVirusDataService.getTotalCases());
-//        model.addAttribute("totalNewCases", coronaVirusDataService.getTotalNewCases());
-//        model.addAttribute("topCountries", coronaVirusDataService.getTopCountries());
-//        return "home";
-//    }
 
     @GetMapping("/")
     public String home(Model model) throws IOException {
@@ -76,6 +58,7 @@ public class DataController {
     }
 
     public List<NewsModel> getNewsService() throws IOException {
+        System.out.println("News Service in DataController called");
         return newsScraperService.getScrapedNews();
     }
 

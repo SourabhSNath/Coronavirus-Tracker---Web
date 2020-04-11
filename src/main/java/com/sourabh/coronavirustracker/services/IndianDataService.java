@@ -6,6 +6,7 @@ import com.sourabh.coronavirustracker.models.india.IndianDataModel;
 import com.sourabh.coronavirustracker.models.india.StateDeltaModel;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -17,6 +18,7 @@ public class IndianDataService {
 
     private final static String COVID_DATA_URL = "https://api.covid19india.org/data.json";
 
+    @PostConstruct
     public List<IndianDataModel> getIndianData() throws IOException {
 
         // Used here to parse Json content
@@ -28,8 +30,6 @@ public class IndianDataService {
         for (JsonNode element : statesNode) {
 
             var indianData = objectMapper.readValue(element.toString(), IndianDataModel.class);
-            var stateDeltaObject = objectMapper.readValue(element.path("delta").toString(), StateDeltaModel.class);
-            indianData.setStateDeltaModels(stateDeltaObject);
 
             indianDataList.add(indianData);
         }
@@ -39,6 +39,8 @@ public class IndianDataService {
         for (var e : indianDataList) {
             e.setSlNo(i++);
         }
+
+        System.out.println(indianDataList);
 
         return indianDataList;
     }

@@ -27,8 +27,14 @@ public class IndianDataModel implements Serializable {
     @JsonProperty("state")
     private String stateOrUT;
 
-    @JsonIgnore
-    private StateDeltaModel stateDeltaModels;
+    @JsonProperty("deltaconfirmed")
+    private int deltaConfirmed;
+
+    @JsonProperty("deltadeaths")
+    private int deltaDeaths;
+
+    @JsonProperty("deltarecovered")
+    private int deltaRecovered;
 
     public IndianDataModel() {
     }
@@ -36,14 +42,16 @@ public class IndianDataModel implements Serializable {
     public IndianDataModel(int slNo, int currentlyActive,
                            int totalConfirmed, int deaths,
                            int curedOrMigrated, String stateOrUT,
-                           StateDeltaModel stateDeltaModels) {
+                           int deltaConfirmed, int deltaDeaths, int deltaRecovered) {
         this.slNo = slNo;
         this.currentlyActive = currentlyActive;
         this.totalConfirmed = totalConfirmed;
         this.deaths = deaths;
         this.curedOrMigrated = curedOrMigrated;
         this.stateOrUT = stateOrUT;
-        this.stateDeltaModels = stateDeltaModels;
+        this.deltaConfirmed = deltaConfirmed;
+        this.deltaDeaths = deltaDeaths;
+        this.deltaRecovered = deltaRecovered;
     }
 
     public int getSlNo() {
@@ -94,12 +102,28 @@ public class IndianDataModel implements Serializable {
         this.stateOrUT = stateOrUT;
     }
 
-    public StateDeltaModel getStateDeltaModels() {
-        return stateDeltaModels;
+    public int getDeltaConfirmed() {
+        return deltaConfirmed;
     }
 
-    public void setStateDeltaModels(StateDeltaModel stateDeltaModels) {
-        this.stateDeltaModels = stateDeltaModels;
+    public void setDeltaConfirmed(int deltaConfirmed) {
+        this.deltaConfirmed = deltaConfirmed;
+    }
+
+    public int getDeltaDeaths() {
+        return deltaDeaths;
+    }
+
+    public void setDeltaDeaths(int deltaDeaths) {
+        this.deltaDeaths = deltaDeaths;
+    }
+
+    public int getDeltaRecovered() {
+        return deltaRecovered;
+    }
+
+    public void setDeltaRecovered(int deltaRecovered) {
+        this.deltaRecovered = deltaRecovered;
     }
 
     @Override
@@ -111,8 +135,9 @@ public class IndianDataModel implements Serializable {
                 ", deaths=" + deaths +
                 ", curedOrMigrated=" + curedOrMigrated +
                 ", stateOrUT='" + stateOrUT + '\'' +
-                ", stateDeltaModels=" + stateDeltaModels +
+                ", deltaConfirmed=" + deltaConfirmed +
+                ", deltaDeaths=" + deltaDeaths +
+                ", deltaRecovered=" + deltaRecovered +
                 '}';
     }
-
 }
